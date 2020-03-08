@@ -1,0 +1,1494 @@
+I want to resize content (img, video, iframes) to fit the parent container
+How do I do this?
+
+object-fit: cover 
+   maintains aspect ratio and fills entire parent. (clips if incongruent with parent ratio)
+
+object-fit:contain
+   maintains image aspect ratio, and scales down the image to fit in the parent if their ratios aren't equal.
+I want to move the replaced element inside of a container
+how?
+
+in the middle
+object-position: 50% 50%
+
+in the corner
+object-position: right/left top/bottom;
+
+
+I have inline block elements with no margins, but there's still whitespace between them.
+What is one way to fix this without adding js or css?
+
+Physically remove the whitespace between the HTML elements. (I wish I was joking.)
+Or you can use flexbox and skirt this issue entirely
+
+                <div class = "bestseller-box">
+                    <img class = "img-bestseller" src = "img/feature/red-tomatoes-kateryna-moskalova--SCfP2RB7Zc-unsplash.jpg" alt ="red tomatoes">
+                </div>
+
+                <div class = "bestseller-box">
+
+                <div class = "bestseller-box">
+                    <img class = "img-bestseller" src = "img/feature/red-tomatoes-kateryna-moskalova--SCfP2RB7Zc-unsplash.jpg" alt ="red tomatoes">
+                </div><div class = "bestseller-box">
+                
+
+the ::after pseudo element doesn't apply to replaced elements like images, frames, or video
+
+box-sizing border box
+         Borders and padding aren't added to the height/width calculation of an element.
+         The content is shrunk to fit the height and width you specify.
+          Ex: a content-box element with a border of 5 and a width of 100% will spill out of its parent.
+              The same box with border-box won't spill out of it's parent, and will keep the same border 
+              thickness with a smaller content area.
+
+              Content-box preserves the content dimensions
+              border-box preserves the layout dimensions.
+
+How do I prevent the top of an image from getting cropped off when the browser is resized?
+
+background-position:top //
+using bottom will prevent bottom cropping
+using center  
+
+My gradient isn't going from the top left corner.
+How do I set this manually?
+
+linear-gradient(to top left, color, color)
+You can also use basic sides like:
+
+   linear-gradient:(to left)
+   linear-gradient:(to right)
+   linear-gradient:(to bottom)
+   linear-gradient:(to right bottom)
+   etc...
+
+How do I put a nice white border around the entire web page?
+
+increase the padding of the body element.
+
+clip path polygon coordinates go clockwise (top-left, top-right, bottom-right, bottom-left)
+/*=============
+with clip-path:polygon(), you're drawing a polygon that will be section of the parent.
+   The reference point is the top left corner (0,0) of the parent.
+     Ex: clip-path:polygon(0 0,  // first corner is at the top left 
+                           100% 0, // next is all the way to the right, at the same height.
+                           100% 50%, // then is all the way to the right, but half way down
+                           0 100%,  // then is at the left, all the way down
+                           
+        This gives you a nice wedge shape (a rectangle with an attached triangle at the bottom.)
+  
+   If you use vh instead of percentages, the shape will dynamically scale with the screen size     
+============== */
+h1 is the most important heading that search engines consider.
+The web page title (or main topic) should fit in the <h1>
+
+If you want to style different sections of the h1 element, you can use a span and attach a 
+class to each part with the styles you want.
+
+How do I push different parts of the title text on new lines?
+One way is to give the parts a spanned class, them style them with display:block.
+This forces them on new lines and makes them take up the container width.
+
+I used absolute positioning to move a text box 50% from the left and 50% from the top.
+
+It moved over, but it's not centered.
+Why, and what can I do to fix it?
+
+It's not centered positions are calcualted from the edges of the parent element edges of the child (top and left in this case)
+This puts the the and left edges in postion, not the child center.
+
+To fix it, tranform:translate(-50%,-50%) on the child
+
+This shifts the child left and up 50%, so each parent side is 50% from it's center, rather than its edge.
+
+
+Instead of just transitions, you can animate elements using the 
+@keyframes rule
+
+
+@keyframes moveInLeft {
+    0% {
+        opacity:0;
+        transform:translateX(-100px);
+    }
+    100% {
+        opacity:1;
+        transform:translate(0);
+    }
+}
+
+To animate an element you must set its name and duration.
+
+element {
+   animation-name: moveInLeft;
+   animation-duration:3s;
+}
+
+Don't get too crazy with animations.
+Jonas recommends animating two properties 
+
+transform and opacity are the most optimized
+
+if you don't want the animation to start instantly, use:
+   animation-delay:<time> 
+to hold it off.
+
+to repeat an animation, use:
+   animation-iteration-count: 3;
+
+animation-timing-function: s 
+allow you to customize the time horizons on the animations.
+
+sometimes animating an element will cause it to shift slighty upward.
+To fix this, set:
+   backface-visibility:hidden;
+   on the CONTAINER element
+
+Jonas doesn't know why this works.
+
+you can use control-d to select the next instance of the highlighted text.
+Useful if you want to change multiple things at once.
+
+also holding control while clicking on an element will allow you to set multiple cursors to 
+add or remove text simultaneously
+
+put the transition properties on the initial state,
+but put the altered properties on the other staets you want.
+
+the ::after pseudo element is treated like a child of the original element.
+therefore, if you want it to be the same size, make the height and width 100%;
+
+::after elements are inlines by default, so if you want them to appear
+on top of their parents, you must make them absolute inline blocks and position them
+with top:0 and left:0
+
+when using translateX/Y, the value you specify is how far the element travels
+to get to its normal position. It doesn't start at the normal position, it starts
+as far away as you specify and moves to the normal.
+
+I want this button to slide in from the bottom after a brief delay.
+
+Trouble is, the button is visible during the delay, before the transition.
+
+I could put the inital states on the btn, but I would have to do that for
+each and every btn with this animation style.
+
+How do I apply the initial animation styles to the element before it starts animating?
+
+animation-fill-mode:backwards
+  This gives the element the styles of the initial animation state ( @keyframes yourAni {0% {opacity:0}};
+
+Jonas' 3 pillars of Good HTML and css
+    1. Responsive Design
+        Website must work across all devices
+
+    2. Maintainable and Scalable code
+        Writing maintainable code and designing good CSS architecture
+        Naming classes, organizing and structuring HTML 
+    3. Web Performance
+        Making it faster and smaller in size
+        Less HTTP Requests
+        Less Code
+        Use a CSS Preprocessor
+        Compress css and images
+        Use less images
+
+load HTML ===> parse HTML                ===> Build DOM                          ======
+                ||                                                                     |
+                =                                                                       |========> RENDER TREE ---> Webpage Rendering: Visual formatting model
+                 V                                                                     |
+              loads CSS ==> *parse CSS  ===> STORE IN (CSSOM) CSSOBJECT MODEL  ========
+BUILDS DOM
+
+
+* Resolves conflicting css declarations (the cascade) 
+*  Process final css values (converting relative units to absolute unites (% to pixesl)) 
+
+css rule = selector + declaration block
+   .selector {
+       //declaration block
+       poperty:declared value //declaration
+   }
+
+The CASCADE - combining stylesheets and resolving conflicts across different css rules and declarations.
+   Types of declarations;
+    author (web developer css)
+    user ( font-size, etc)
+    browser (user agent)
+
+    How does it judge which rules apply?
+      three criterion
+         Importance (weight) > Specificity > source order
+
+         Importance
+           1. user !important
+           2. Author !important
+           3. Author declarations
+           4. User declarations
+           5. Browser declarations (defaults)
+
+         Specificity  
+            1.inlines
+            2. IDs
+            3. Classes, pseudo-classes, attribute
+            4. Element, pseudo-elements
+
+            .button {} (0,0,1,0)  inline, IDs, classes, elements
+
+            nav#nav div.pull-right .button {}; (0,1,2,2)
+
+            a {} (0,0,0,1)
+
+            #nav a.button:hover {} (0,1,2,1)
+
+            you move left to right, the largest number wins 
+            
+            (0,0,1,0)
+            (0,1,2,2)  WINNER! 
+            (0,0,0,1)
+            (0,1,2,1)
+
+            The winner is the cascaded value
+
+            Source Order
+              THe last declarations in the code wins
+
+    Recap
+      !important declaration have the highest Prio
+         Only use important as a last resort. Don't use it to replace proper selectors.
+      Inline styles wreck externals   
+
+      1 ID beats 1000 classes
+      1 class beats 1000 elements
+      The Universal selector has no specificity (0,0,0,0);
+
+      Use specificity rather than order.
+         This keeps your styles consistent if you rearrage your code.
+
+         UNLESS
+         You're using 3rd party stylesheets. Put yours last to have the final say.
+
+
+HOW CSS VALUES ARE PROCESSED
+    Declared Value (author)
+    Cascaded (winning value)
+    Specified (same as cascaded, or default if no cascade)
+    Computed (relative converted to absolute)
+    Used (calculated, based on layout)
+    Actual (Used altered for browser/device [148.2px => 148px] )
+
+    For each page element, every css property needs/has a value, even if it's undeclared.
+    Each CSS property has an initial value, which is used if there is no cascaded one from the browser, author,  or user
+
+HOW UNITS ARE CONVERTED TO ABSOLUTES (PX)
+
+    PERCENTAGES
+        %(fonts) = (%) * parentFontSize
+
+        %(lengths) = (%) * parentWidth
+
+        The reference is ALWAYS the Parent's Width.
+            .header {width:1000px;} .header-child{padding:10%} /*100px*/
+
+    FONT BASED (EM/REM)
+
+        em(font)         em * parentFontSize
+
+        em(length)       em * currentFontSize
+
+        rem              em * rootFontSize
+
+
+        Why would use use em/rem instead of %?
+
+        Changing the font size will automatically change lengths
+
+    Viewport-Based    
+
+        vh          x * 1% of viewportHeight
+        vw          x * 1% of viewportWidth  
+
+Recap     
+
+    Each property has an initial value, used in absence of inheritance or declared values.
+    
+    Browsers specify a root font-size for each page (16px usually) USER AGENT definition
+
+    Percentages and relative values are always converted to pixels
+
+    Percentages are measured relative to parent font sizes, if specifying font-size;
+
+    Percentages are measured relative to parent width, if specifying lengths;
+
+    ems are measured relative to parent font-size, if specifying font-size;
+
+    ems are measured relative to current font-size, if specifying length;
+
+    rems are measured realative to the root font-size;
+
+INHERITANCE
+    All Properties Must Have A Value    
+    cascaded value?
+        specified value = cascaded value
+
+    No cascade?
+        inherited?
+            PARENT computed value = specified value
+        non-inherited ?
+            specified value = initial values.
+
+    Rule of thumb:
+    TEXT PROPERTIES ARE GENERALLY INHERITED.
+    Computed values get inherited, not declared values.
+    inheritence steps in when the browser and developer don't declare values.
+
+Easily Switching from Pixels to REM.
+
+set an html{} rule;
+Set the font-size to 10 pixels;
+
+Divide all the pixels by 10 everywhere else.
+These are your rems.
+
+It's bad practice to set the font-size in pixels (lolwut?)
+ -Didn't you just state otherwise?
+
+ This overrides the browser font-size settings, and stops people with bad 
+ eyesight from changing the font size;
+
+ Remember (Author styles beat out user and browser styles)
+
+ To fix this, set the font-size to (10/16)%
+
+ in the universal selector choose after and before elements.
+ *,
+ *::before,
+ *::after
+
+ set the box-sizing:border-box in the body.
+
+ set box-sizing to inherit in the universal selector
+
+WEBSITE RENDING;
+
+VISUAL FORMATTING MODEL 
+  Algo that calculates boxes and their layouts for each
+  element in the render tree to get the final page layout. 
+
+What it takes into account:  
+  1. box-dimensions: (box model)
+  2. box-type : block, inline, inline-block
+  3. positioning scheme: floats, position atts
+  3. positioning: floats, position atts
+  4. stacking contexts: opacity, z-index,
+  5. Other elements in the render tree.
+  6. Viewport size, image dimensions, etc
+
+
+1.  The Box Model
+        Each element can be viewed as a rectangular box.
+        All elements MAY OPTIONALLY HAVE width, height, padding, margins, and a border
+        
+        Content - text, images, etc
+        padding - Transparent area  between the content and border.
+        border - goes around padding and content;
+        margin - space between boxes.
+        fill area - Area from the content to the border
+                    This gets filled with bg color/images
+
+        border box makes the height and width settings apply all the way out to the border          
+        The total height and widths are the same as the specified heights and widths
+
+2.   Box Types
+        The display property controls the box type
+
+        Block-level boxes
+            Formatted visually as blocks
+            100% of parent width;
+            On new Lines
+            All box-model properties apply
+            
+        flex, list-item, and table display types also produce block elements.
+
+        Inline boxes
+            Content distributed in lines
+            ONLY OCCUPIES CONTENT SPACE
+            No line breaks
+            No height and width;
+            Only HORIZONTAL padding and margin.
+
+
+        Inline-Block
+            Occupies only content's space
+            No line breaks
+            All box-model properties apply
+
+3.  Positioning 
+
+        Normal Flow (default)
+            No floats
+            No absolutes
+            elements laid out according to source order
+
+        floats
+            Elements removed from the normal flow
+            Moved to left or right edge of container or until they touch another floated element
+            Text and inlines wrap around the floated
+            The container won't adjust height to the element. (clearfixes used to fix this) 
+
+        Absolute (or Fixed)
+            Element romved from normal flow
+            No impact on surrounding elements
+            top/bottom/left/right offset the element      
+
+4.  Stacking Index 
+        Determines the rendering order of elements on the screen
+
+        New contexts are created by z-index, filter, transform, opacity, etc.
+==========================================================
+CSS Architecture
+
+    Jonas likes the Think, Build, Architect mindset
+
+    Think about the layout first
+    Build it with a consistent structure for naming classes
+    Create logical architecture for css with folders/files
+
+    Think
+        Modular components to construct interfaces
+            These are held together by the page layout.
+        Components should be reusable across a project, and between different project
+        Independent components let you use them anywhere on the page
+            They shouldn't depend on parent elements.
+
+    Build   
+        Jonas like the BEM naming convention = Block, element, modifier
+        .block {}, block__element, .block__element--modifier
+        .videoShowcase, video
+
+        Block - standalone, meaningful component
+        Element - part of a block without meaning on its own (sub containers)
+        modifier - differnt version of a block or element.
+
+    Architect
+        Create logical folder and file structure
+        Jonas likes the 7 1 pattern.
+
+        7 different folders of partial Sass files
+
+        base/
+        components/
+        layout/
+        pages/
+        themes/
+        abstracts/
+        vendors/
+
+        1 main Sass file to import all other files into
+        a compiled CSS stylesheet.
+        
+=============================================================================
+SASS
+
+
+Two ways to write sass
+
+Sass Syntax (indentation-sensitive)
+
+.navigation 
+    list-style:none
+    float:left
+
+SCSS (Sassy css)
+
+.navigation {
+    list-style:none;
+    float:left;
+}
+
+Sass Variables
+
+$color-primary:#f9ed69; //You have to include the semi-colon
+
+background-color:$color-primary;
+
+Sass lets you comment with the double slashes // instead of always using /**/
+
+Nested Selectors
+
+    <nav class = navigation>
+        <li><a>
+
+    Instead of writing out the entire selector path to reach child elements.
+        .navigation li a { }
+
+    You can nest the selectors at different levels inside of the parent.
+        .navigation {
+            list-style:none;
+
+            li {
+                display:inline-block;
+            }
+        }
+
+Pseudo-classes with Sass
+
+    Nesting also works with pseudo classes:
+
+        .navigation {
+            list-style:none;
+
+            li {
+                display:inline-block;
+            }
+            li:first-child {
+                margin:0;
+            }
+        }
+    But you can go even further beyond.
+
+        .navigation {
+            list-style:none;
+
+            li {
+                display:inline-block;
+
+                &:first-child {  // Lolwut? What's that & symbol doing there?
+                    margin:0;
+                }
+            }
+
+        }
+
+    The & is a stand in for the current selector, just like the ./ in the current file path.
+
+    so the fully compiled selector at &:first-child is .navigation li:first-child;
+        leaving it out puts puts a space in the selector.   .navigation li :first-child  // not gonna work.
+
+
+Sass has some build in functions
+
+darken(color, %darker)
+lighten(color, %lighter)
+pseudo-elements are used when there isn't a specific element that the selector targets.
+    ex: :first-child will target a discrete element, 
+    but :first-letter will target a PART of an element
+
+
+Mixins 
+    reusable chunks of code we save into variables. 
+
+    Instead of rewriting the clearfix class every time you use floats, you can use a 
+    Mixin variable .
+    
+    @mixin clearfix {
+        &::after {  
+        content: ""; 
+        clear:both; 
+        display:table; 
+        }     
+    }
+
+    To use it, in your css rules 
+
+    nav { 
+    @include clearfix;
+    }
+
+    You can pass arguments into mixins as well, like functions
+
+    @mixin style-link-text($color) {
+    
+        text-decoration:none;
+        text-transform:uppercase;
+        color: $color;
+    }
+
+Extends
+    You can define a bunch of styles in
+
+    
+    %btn-placeholder {  //preface the name with %
+        background-color:blue
+        font-style:italic;
+    }
+
+    .btn-main {
+
+    }
+    
+    use @includes %extendName
+    in your selector and add any other css you want to it.
+
+    .btn-main {
+        &:link{
+        @includes %btn-placeholder;
+        padding:10px;
+        }
+    }
+
+    .btn-hot {
+        &:link{
+        @includes %btn-placeholder;
+        padding:10px;
+        }
+    }
+
+    How is this any different from a mixin?
+        With mixins, the code is copied into the selector.
+        With extends, the selector replaces the extends name in your code.  
+
+
+    With mixins,
+
+    Compiles into:
+
+    .btn-main {
+          &:link {
+            padding:10px;
+            background-color:blue
+            font-style:italic;
+          }
+      }
+
+     .btn-hot {
+         &:link {
+             padding:10px;
+             background-color:blue
+            font-style:italic;
+         }
+     }     
+    
+    With Extends
+     Compiles into:
+     
+       .btn-main:link, .btn-hot:link {
+           background-color:blue;
+           font-style:italic;
+            padding:10px;
+
+       }  
+
+
+COMMAND LINE 
+
+    list files
+     nix - ls
+     win - dir 
+    
+    change folder
+     cd #fname
+
+    move up in folder 
+
+    make folder
+     mkdir #name
+
+
+    make file
+     touch filename
+     type nul>filename 
+    
+    copy file
+      cp filename filepath
+      copy filename filepath
+
+    move file
+      mv filename filepath
+      move  filename filepath
+
+    remove file (dangerous, skips the trash can)
+      rm filename
+      del filename  
+
+    remove folder
+      rm -r foldername
+      rmdir /q/s foldername
+        /q won't ask for confirmation before deleting folders
+        /s run on all folders of the path (including itself)
+        
+    remove folder contents
+      ?
+      del foldername  
+
+You can import files into your main sass file with
+
+
+
+
+How do you get SASS to autocompile when you're editing it?
+
+Start a new terminal window.
+
+navigate to your project folder with your package.json.
+
+in the package.json file, under scripts
+
+scripts: {
+    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+}
+ "command:name": "package-running where/sass.is where/css.output.goes -flags
+
+the -w flag automatically reruns the command when the SASS changes.
+
+
+@import can be used to get sass pieces you need to for your complete stylesheet file.
+
+Our folder structure:
+
+sass
+    main.scss
+    base
+        _base.scss
+
+In the main.scss, write:
+@import base/base
+  Sass can figure out the prefix and extension.
+
+max-width:
+  if there is enough space, element will be x long.
+  otherwise, it will fill 100% of available space
+
+margin 0 auto centers blocks inside of blocks.  
+
+the :not(selector) pseudo class lets specify what items/elements to exclude from your attributes;
+
+ul {
+    ul:not(ul::last-child) {
+        padding-bottom:5px; //everything but the last child will have the padding.
+    }
+}
+
+
+I need to calculate some layout widths.
+How do I do this in css?
+
+Calc()
+    allow you to do math operations in css.
+    you can mix units.
+
+    .column {
+        width:calc( (100% - --column-spacing)/2)
+    }
+    For the + and -, you have to HAVE TO HAVE SPACES ON EITHER SIDE.
+
+In SASS you can't mix units with the calc functions, because it Compiles
+    and outputs values before the side dimensions are calculated via the
+    visual formatting model.
+
+To use SASS variables inside of the calc function, you have to cage them
+like animals #{$sass-var};
+
+    .column {
+        width:calc( (100% - #{$column-spacing})/2)
+    }
+
+I want my heading text to have a gradient.
+How do I do that?
+
+         display:inline-block; // So the gradient covers only the text;
+        background-image:linear-gradient(to right, $color-primary-light, $color-primary-dark); 
+        background-clip:text; // this cuts the background into the shape of the text
+        color:transparent; // The background is behind the text; making it transparent shows the gradient 
+
+How do I put a shadow under my text?
+            text-shadow: .5rem 1rem 2rem rgba($color-black, .2)        
+
+            transform: skewY(2deg) skewX(15deg) scale(1.1);
+
+Jonas uses utility classes with styles instead of adding declarations to the components rules.
+
+This lets him position them without compromising their reusable aspect.
+
+         <div class = u-center-text>
+           <h2 class = "2ndary-heading></h2>
+         </div>
+He now doesn't have to create multiple versions of the same component with slightly different styles.
+
+
+Attribute selectors     
+
+    [att] (has selector)
+        works as long as the element has the attribute;
+        form[action]
+        [href]
+
+    Value Selectors
+
+        [atr=val] (this only selector)
+            works if the only value the element has is the one specified.
+
+            li[class~="a"] {font-weight:bold;}
+                <li class ="ab">  No
+                <li class = "a c">  No
+                <li class = "a"> Yes
+
+        [attr~=val] (this and selector)
+            works if one or more of the values the element has is the one specified.
+            
+            li[class~="a"] {font-weight:bold;}
+                <li class ="ab">  No
+                <li class = "a c"> Yes
+                <li class = "a"> Yes
+            
+        [att|=val] this and dash
+            value matches exactly or if there is a match followed by a dash.
+            
+            li[class|="a"] {font-weight:bold;}
+                <li class ="ab">  No
+                <li class = "a c"> No
+                <li class = "a"> Yes
+                <li class = "a-type"> Yes
+            
+
+        [att^=val] (starts with selector)
+
+            li[class^="box"]{font-weight:bold;}
+
+                <li class = "boxing"> yes
+                <li class = "sub-box"> no
+
+
+        [att$=val] ends with selector
+
+            li[class$="box"]{ font-weight:bold;}
+                
+                <li class = "boxing">no
+                <li class = "sub-box">yes
+            
+
+
+        [att*=val] contains 
+
+            li[class*="box"]{font-weight:bold;}
+
+                <li class = "boxing"> Yes
+                <li class = "sub-box"> Yes
+                <li class = "info-box-large"> Yes
+                <li class = "banner"> No
+
+Defining the width of an image in percentage will let it scale with the viewport,
+making responsive design easier.
+
+direct child selector
+
+The outline offset property draws outline with a set distance spacing between itself and the element.
+
+
+perspective property css
+
+    The distance between the screen and the user.
+    This is set for 3d/animated elements to simulate how they/their animations
+    would look if their vanishing point was viewed from that distance.
+
+    The vanishing point is by default the point of the element. You can change this with perspective-origin.
+
+    For rectangular, monocolor 2d elements, the vanishing point doesn't really matter.
+    
+
+    A smaller perspective means the element appears very close to the user:
+        1. appearing bigger for static elements,
+        2. with more dramatic and close up animations 
+        3. For 3d elements, a small perspective can drag the viewpoint inside of the element (because the vanishing point is in the 3d center)
+
+    A large perspective means the element behaves as if it was far away from the user,
+    meaning the element looks 2d as if you hadn't set the property at all.
+    
+How do I blend gradients and background images to create nice effects in css?
+    background-blend-mode
+
+I have title text with a nice background gradient and padding.
+When I split the text on two lines, the padding isn't uniformly applied to 
+each part; the padding cuts off on the right side of the first part and the left
+side of the second part.
+
+How do I fix this? How do I apply padding to both parts of a split text string?
+
+    box-decoration-break: clone;
+    This applies styles to both parts of the broken/split element
+
+
+        shape-outside:circle(50% at 50% 50%) //radius at xpos ypos   
+        must be floated to work with both a defined width and height
+
+    use transform:translate to move floated elements around.
+    You can use filter:brightness() to change the element's lightness. >100% means it becomes brighter, < 100% means it's darker.
+    No need for lowering the opacity of an image and putting a black div behind it darken it.
+
+ video element - used to hold videos   
+    useful boolean atts:
+        autoplay
+        muted
+        loop 
+source element - used to link the video source, the type (video/<mp4><webm><w/e>)
+    self-closing, void element
+        src att used to link the url
+        nest this inside of the video element.
+        After the source elements, You can put error messages if the video isn't working.
+        
+        
+Instead of specifying background-size: cover, you can set background size to 100%. (They do the same thing)
+
+
+Instead of the gradual blurring of two gradient colors, you can achieve a sharp, solid edge between themes
+by specifying the percentages of the elements where the colors start and stop.
+
+linear-gradient(to right, blue 0%, blue 33%, white 33%, white 66%, red 66%) <-- the french flag
+
+for input elements jonas likes to add more padding on the sides because even
+padding makes the elements appear cramped.
+
+browsers by default have their own fonts for input elements.
+You can set the font family to inherit to fix this.
+
+focused input elements are usually given a blue outline by browsers.
+If you don't like this outline and want to remove it, it's important that you
+give it some other properties like borders and shadow facilitate use by handicapped people.
+
+You can change these properties with the :focus() selector:
+
+&:focus() {
+    outline:none;
+    box-shadow: 0 1.5rem 2rem rgba(0,0,0, .15);
+    border:none;
+    border-bottom: 2px soild black;
+}
+
+some input elements are given implicit borders, so you have to set border:none before you add your
+own borders.
+
+::webkit-input-placeholder // allows you to style the placeholder text of an input field
+
+how do i change the styles when the user has invalid inputs in a form?
+
+use the :valid and :invalid selectors.
+
+You can't style radio buttons in css.
+
+:placeholder-shown
+IF you have an empty rule but don't have any declartions, it won't appear in the cssRules object
+
+display:none; // removed from display and markup
+visibility:hidden; //still takes up flow space, just can't see.
+
+
+jonas likes using lighter grays on dark background instead of white.
+    I believe the lower contrast makes the text easier on the eyes.
+
+
+Rotating card
+custom buttons
+
+radial-gradients: start at the center, ripple to the edges.
+
+text-decoration isn't inherited
+
+color: transparent is the absence of color, and is very handy to hide elements, instead of changing
+    visibility or opacity or display
+
+the transform origin is always in the center of the element, unless you
+change it with transform:origin.    
+
+
+I want to break the text up into two columns instead of one long string.
+How?
+    use columns:#
+        It divides the available width by the number of columns you specify,
+        and when your text reaches that width, it breaks on a new line.
+
+Ok, I have the columns, but they're smashed too close together. I want them farther apart.
+    column-gap:<length>
+        specifies the gap between the columns (duh)
+
+I want to simulate a vertical page line between these paragraphs. like a vertical hr element.
+How?
+
+    column rule - puts a vertical border in the middle of the column gap between columns
+        Because it's a border, it uses the whisk properties (wdith style color );
+        
+
+If you're trying to hide elements to appear later,
+why do you need to set visibility:hidden in addition to opacity none?
+
+    if opacity is none, the elements can still sit on top of others and block mouse clicks.
+    visibility hidden remove the element from the 
+
+I want to style this popup element when you click on a link that targets it.
+How?
+
+:target -psuedo class. 
+
+why is it bad to have two transform properties seperately defined in a declaration block?
+
+    There can be only one transform per block. The last one declared wins.
+    Put both properties in the same transform, separated by a space
+
+    transform:scale(.5);
+    transform:translateX(-50px);
+    == transform: scale(.5) translateX(-50px);
+
+
+
+RESPONSIVE DESIGN
+    Desktop First
+        Write media queries testing Max Width
+    Mobile First
+        Write media queries testing Min Width.
+            Reduce website to the bare essentials for mobile performance.
+
+
+    Common Break Points 
+        600, 900, 1200, infinite  
+
+        Desktop first code starts with infinite.      
+
+            If you have queries at 600 and 900, but a screen is 500px, which ones apply?
+            
+                Both apply.
+                Media queries Don't Add Specificity, so properties are bound to conflict.
+                Putting the queries largest to smallest fixes this.
+
+        Mobile first code starts at 0
+
+            This is the minimum width where the query applies.
+                All larger screen sizes will have this code applied to them.
+                Putting the queries smallest to largest fixes this.
+                
+    Mobile first Pros and Cons.
+        Pros:
+            Optimized for mobile.
+            Reduces design to bare essentials.
+            Smaller, faster, more efficient produces.
+            Content is more prioritized than asthetic.
+
+        Cons:
+            Desktop versions may be empty and simplistic.
+            More counterintuitive to develop for.
+            Constraints make being distinct and creative more difficult   
+            Clients are used to seeing desktop versions as prototypes (from web 1.0 and 2.0)
+            Certain clients (esp business) may not use mobile devices with your website/app.
+
+
+    How do you choose what breakpoints to use?
+
+        Bad Way - Design for specific products (usually apple devices)
+
+            Why is this bad?
+                1. Not future proof (resolutions can change, devices popularity shifts)
+
+        Good Way - Choose based on most common device widths across the internet, then use queries to group them.
+
+            Why is this good?
+                Devices aren't left out
+
+                Break points should be between device width clusters.
+
+        Perfect Way - Start at one width, slowly increase width until the design breaks, adjust queries.
+
+            Why is this perfect?
+                You don't need to think about device widths, period.
+
+            Why isn't this always done?
+                Can be difficult to find ideal break points without references.
+                Keeping the query numbers under control can be an issue.
+
+
+    Ok, So how do I actually use media queries in SASS?
+
+        Use mixins with the content directive, arguments, and if blocks
+
+        example:
+        @mixin responsive($dev-type){
+
+            @if($dev-type == small-phone) {
+                @media(max-width:37.5em) {@content}
+            }
+
+        }
+
+        usage
+
+        html {
+            @include responsive(small-phone) {
+                padding: 2em;
+            }
+        }
+
+        What the heck is the point of the @content directive?
+
+        It's where your styles go when you call the mixin's name and make css declaration.
+
+        You can have conditional statements in SASS?
+            sure you can, us the @if directive with braces.
+
+
+        What do you mean I can't use rems with media queries?
+
+        ems and rems aren't affected by root font size settings in media queries
+        as of the tutorial, rems don't work for media queries
+        em's (16px) should be used instead.
+
+
+you can make a slide in effect by setting a solid two color linear gradient.
+increase the background-size (~200%) so only one color is visible in the container box.
+finally, shift the background position to 100 percent, so the invisible element is moved all the way over to cover the container box.
+This works because the initial background position state is 0%
+
+display:table on parent 
+display:table-cell on children
+
+include the media queries after the normal css, or when you hit a breakpoint, your 
+normal css will cascade and overwrite the queries
+
+
+    content columns on small devices become very narrow, cramped, and hard to read 
+    on devices with small screens
+        what is a common work around that you can impliment in media queries?
+
+        turn all of the columns into seperate rows by setting their width to 100%
+        you can use !important to be sure, and remove the margin/gutter from all columns.
+
+
+        touch devices can't hover, so don't activate the :hover selector
+
+If you have multiple elements per line, they can looked cramped on a small screen.
+Put them on new lines by settings their width to 100% and put some margin between them 
+
+
+RESPONSIVE IMAGES
+
+    Send the right image size to the right device, refraining from sending oversized
+    images on slower connections.
+
+    Use cases:
+
+    Resolution Switching
+        Decrease image resolution on smaller screen
+
+    Density Switching
+        larger image for hi-res, smaller version for lowres
+
+        hi-res/2x screens - use 2 pixels to display 1 design pixel 
+            an image of 100 pixels will display as 200 pixels
+
+            on these screens you have to use double the amount of pixels
+            (because the resolution [pixels used] is double)
+
+        low-res/1x screens - use 1:1 display/design pixel 
+
+
+    Art Direction 
+        different image on a smaller screen   
+            Keep the important parts, but remove some background details
+
+
+    The use cases in HTML
+
+        Density Switching (different images for different screen resolutions )
+
+            in the image tag, use srcset att to specify two images with a density descriptor
+
+            srcset = "img/logo-green-1x.png 1x, img/logo-green-2x.png 2x"
+                                            ^ Density descriptor
+
+            If you leave out density descriptors, what's the resolution assumed to be? 
+                1x
+
+        Art Direction (different images for different viewport width)
+
+            First, use a picture element. This element must have one image and zero or more sources (dumb, should always have one source)
+            Use a source element with a MEDIA attribute. Put the media query in here (don't need the @media, just the prop and value)
+            Follow this with an image tag using the right srcset att.                             
+
+                <picture class = "footer__logo">
+                    <source srcset="img/logo-green-small-1x 1x, img/logo-green-small-2x 2x" 
+                        media="(max-width: 37.5em)">
+                    <img srcset = "img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt = "full logo" class = "footer__logo">
+                </picture>
+
+        Resolution switching (changing image resolution based on screen sizes)
+
+            First, instead of a density descriptor, use a width descriptor to tell the browser how wide
+            the image will be (in pixels). 
+
+                <img srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w">
+            This lets the browser know the file dimensions without downloading it first.
+
+            Then use the sizes attribute to:
+                1. set a media breakpoint (you may have multiples)
+                    sizes = "(max-wdith: 900px)
+                2. find the ratio of the image width to the viewport.
+                    To find the ratio, go to your breakpoint width, and divide your image width by the breakpoint width.
+                    This decimal times 100 is your vw ratio
+
+                    sizes = "(max-width: 900px) 20vw, >
+                3. set a default image size if none of your breakpoints apply.    
+                    sizes = "(max-width: 900px) 20vw, 300px>
+
+
+    Responsive Images with CSS
+        We're targeting background images in this case
+
+        You can write media queries to target screens based on their resolution
+            @media(min-resolution: 192dpi) //Targets hires apple screens and up
+
+        You don't have to test for just one condition in your media queries
+            Test for BOTH (and)
+                @media (min-resolution: 192dpi) and (min-width: 600px) 
+
+            Test for EITHER (,)   
+                @media (min-resolution: 192dpi), (min-width: 600px) 
+
+                    If the lower-res image is 1200px, we can still use it for 600px phones
+                    with 2x screens because 1200 is double the size.
+
+
+        Combining media queries into one
+            If you have duplicated code in queries, it may be possible to combine their rules
+            with the comma to test either OR.
+
+                 @media (min-resolution: 192dpi) and (min-width: 600px), (min-width:2000px) {
+
+        Convert those pixels to em! pix/16 = em
+                 @media (min-resolution: 192dpi) and (min-width: 37.5em), (min-width:125em) {
+
+    
+    Graceful Degradation
+        Providing a reduced or simpler experience for older browsers.
+
+        You can use @supports() {} to test if a browser supports a feature
+
+            @supports( (hypens:none) and  (backdrop-filter: blur(10px)) ) {
+            hypens:auto
+            backdrop-filter:blur(10px);
+            }
+            you can use and, or, and not in your feature queries.
+
+            You want to build the baseline css, and use @supports for the cooler features.
+            This way you know that your css works with older browsers by default.
+
+        backdrop-filter -applies filter to what's behind the selected element. 
+
+
+        how do you change the color of user highlighted text?
+             ::selection {} pseudo-element
+
+        adding only screen to the media queries makes sure they don't apply in other modes,
+        like print mode.
+
+        @media only screen and (min-width:125em){};
+
+        It's vital to include this meta tag specifying the name = viewport and the content 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                target the viewport
+                    width of the content should be the device width
+        
+
+        When writing queries for mobile devices, those with huge screens will have desktop styles applied
+        to them that may require hovering.
+
+        To make your hoverless media queries always apply to screens you can use the (hover:none) query. opposite is (hover:hover)
+
+        @media only screen and (max-width:56.25em),
+        only screen and (hover:none) {
+
+
+FLEXBOX
+
+    How do you make a flexbox?
+        Set the container element to display:flex
+            You can also use flex-inline to make a box with inline behavior, but jonas never really uses it.
+        All of the flex container's children are flex items
+
+        These items are laid out in the direction of the Main Axis, which defaults left to right
+        There is another axis - the cross axis - which defaults top to bottom
+
+        Useful properties for the container: <default-val>
+            flex-direction:<row> - which direction the main axis goes. <right to left>
+            flex-wrap:<nowrap> - should the items wrap on new lines if the container runs out of space
+            **important**
+            justify-content:<flex-start> - How the items align along the main axis.
+            align-items:<stretch> - Like justify-content, but for the cross axis.
+
+            align-content:<stretch> - how multiple items are aligned on the cross axis if there is space.
+        
+        Useful properties for the item: <default-val>
+
+            align-self:<auto> - lets you align a single item as you wish
+            order:<0> - lets you define the order of items in their container.
+            flex -
+                -grow:<0> - how large it can get
+                -shrink:<1> - how small it can get
+                -basis:<auto> - base width
+
+            You can use flex to set the three above.
+
+    Alignment in flex containers
+
+        I want to align my items at the start of the main axis
+            justify-content:flex-start
+
+        I want to align my items in the center of my container along the main axis
+            justify-content: center
+
+        I want to align my items to the opposite end of the main axis    
+            justify-content: flex-end
+
+    Spacing in Flex Containers
+
+        How do I space flex items to both edges of the flex container along the main axis?
+            justify-content:space-between
+                This puts equal spacing between flex items
+
+        Ok, but I want the 1st and last elements to have space between the container edges too.
+            justify-content:space-around 
+                This puts equal spacing on either side of the flex items.    
+
+        But now there's more spacing element to element than element to border
+            justify-content:space-evenly
+                This puts equal spacing between the borders and the flex items.
+
+        I want all of the flex items to match the height of the largest one.
+            align-items:<stretch>
+        
+        I want my items to be aligned to the center of the largest one (in the cross axis)
+            align-items:center
+
+        I want all my items at the start of the cross-axis
+            align-items:flex-start    
+
+        I want all my items at the end of the cross-axis
+            align-items:flex-end 
+
+        I need the text in all my items to be aligned at the bottom;
+
+            align-items:baseline.
+               The tallest item determines the baseline.       
+====================================================================================================================
+
+        datalist for searchable set of option items
+
+    Align-self
+        flex-grow:
+
+
+Why use CSS variables?
+    CSS variables can be manipulated in javascript
+    CSS variables can be edited in dev tools
+    CSS variables cascade and are inherited, unlike SASS variables
+
+
+Why SVG's instead of icon fonts?
+    Unintended use of fonts (hacky)
+    Failure prone, with clunky failover (browser displays a blank square)
+    screen readers cannot read them very well
+
+    Scalable vector graphics
+
+    having all of your icons in one sprite file avoids multiple http requests
+
+    Now that you have your sprite file and your svg icon folder in your img folder, how do you use the icons?
+    svg container element with a nested use element that has the proper xlink:href set
+
+        <svg class="search__icon">
+            <use xlink:href="img/sprite.svg#icon-magnifying-glass"></use>
+        </svg>
+
+    xlink svgs only work on web servers.
+
+    How do you set SVG icon sizes?
+        in their css, set height and width.
+
+    How do you change svg icon colors?
+        fill:
+
+    position:absolute doesn't work well with SVGs
+
+    flexbox also works if you're centering text inside of a span element.
+        set the span to display:flex and give it align-items:center;
+
+    The default on align items is stretch, meaning flex items in a row will grow to match the height of the largest item.            
+
+    Instead of always copying parent var colors to children,
+
+        you can use currentColor instead to make the child grab the parent's 
+
+    If you to change the color of the parent for a hover effect, using current color
+    on the children will automatically change the children elements to that color without 
+    without needing another selector for the children elements.
+
+        parent:hover {
+            color:orangered
+         }
+
+        child {
+            color:currentColor; //child is orange-red when hovered.
+        }
+
+    z-index only works if you specify a position;     
+
+    three images
+    images are their default width.
+    flexbox has a defined width (1000px), and it evenly allocates available width to the three images (1000/3 = 333.333...)
+    setting image width to 100% means they occupy all of this 333 pixels.
+    Setting it to 90 percent means they would be 300 width
+
+
+    It's difficult to give assymetric spacing to flex items.
+        Using justify-content won't work because space is relatively evenly distributed.
+
+        Playing with flex-grow values isn't a great solution either because the flex items can become
+        much larger than their content, unexpectly triggering hover events and blocking elements.
+
+    What's the solution?
+        margin-left/right: auto moves elements as wide as possible apart without increasing their box size.
+        margin:auto will put equal spacing on either side of the elemnt.
+
+    Because SVGS display as inline elements, sometimes there is extra white space underneath them.
+        Fix this by setting their parents to display:flex;
+
+    How do you make an animation cycle infinitely?
+        add infinite to its animation property
+            animation:name 1s infinite;
+    
+    min-width:<auto> means a flex item cannot be narrower than the longest word/piece of content inside of it.
+        This can be a problem if you have long content items on a small screen; elements may be pushed out of the viewport.
+            The fix?
+            min-width: 0 (lets the flexbox be smaller than the content inside of it)
+
+
+    How do I make a list of items 
+    How do you make sure two flex items sit side by side?
+    Use the flex property, and set their flex-basis to 50%:
+
+    flex: 0 0 50%;
+
+you can make a slide in effect by setting a solid two color linear gradient.
+increase the background-size (~200%) so only one color is visible in the container box.
+finally, shift the background position to 100 percent, so the invisible element is moved all the way over to cover the container box.
+
+This works because setting the bg-position to a percent, aligns the image @ that percent to the same percent of the container.
+
+The right edge of the background-element, the part you can't see, is moved to the right edge of the container, changing the color. 
+
+
+last-of-type instead of last child to target specific elements in css selectors :not(:last-of-child)
+
+masks:url()
+with background-color
+and mask-size:cover
+
+css variables can't be used in media queries
+Sass variables may be subbed in.
+
+listen for a week
+
+First 3 months
+basic phrases (don't look up words at first) increase complexity over time.
+
+Once you understand the patterns, you can start replacing words with new ones.
+
+Study vocab after this point.
+
+
