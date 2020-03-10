@@ -938,6 +938,12 @@ NODEJS
         const pathName = url.parse( request.url,true).pathname // true makes it create an obj, which has a pathname key
         }
 
+	Templating
+		
+		Taking a reusable HTML structure, and filling it with custom data using js.
+            Original: <p class="laptop__price">$1999</p>
+        	Template: <p class="laptop__price">${%PRICE%}</p>
+
 
 	A BOY uses forbidden magic to summon a familiar.
     Things light up, but there is no monster 
