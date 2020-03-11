@@ -17,10 +17,23 @@ const server = http.createServer( (req, res) => {
 
       if(pathName === '/products' || pathName === "/") {
         res.writeHead("200", {"Content-type": "text/html"});
+        let cardHtml = "";
+        fs.readFile(`${__dirname}/templates/template-card.html`, "utf-8", (err, data) =>  {
+            if(err) throw err;
+            cardHtml = data;
+        });
         
         fs.readFile(`${__dirname}/templates/template-overview.html`, "utf-8",(err, data) => {
 
             if(err) throw err;
+            let productCards = "";
+            let newCard = "";
+            for(let i = 0; i < laptopData.length; i++) {
+                newCard = replaceTemplate(cardHtml, laptopData[i]);
+                productCards +=  "\n" + newCard;
+            }
+
+            data = data.replace(/{%CARDS%}/g, productCards);
              res.end(data);
         });
 
