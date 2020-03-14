@@ -952,106 +952,91 @@ NODEJS
 		routes, stylesheets, and images are all requested when you load up pages.
 		If you want to ignore routing css, make the styles inline in styleblocks
 
-	A BOY uses forbidden magic to summon a familiar.
-    Things light up, but there is no monster 
-    Thinking he failed, he goes to sleep
+
+
+
+	THE EVENT LOOP
 	
-	ALTERNATIVE
-	 (there is an explosion in the distance) //
-	 he runs outside, in a panic.
-	 An outside wall is in ruins and he sees something melt away into the night.
-	 He knows the alarm has been raised, so he hides inside of his house.   
-	 
-	 MAYBE he's casting the ritual on/near someone else's property or an abandoned/dilapidated structure.
-	 The explosion happens to be near that guy whose parents are shunned, and their child gets blamed.
-    
-    The next day, a part of a stone barrier is utterly ruined.
-    A friend/acquaintance who is an outcast and a suspected witch/wizard is blamed for the crime.
-    Our friend does keeps slient. Better them than me.
-    The situation gets worse.
-    More disturbances happen.
-    Until he has to face what he has done.	
-	
-	The thing is unable to properly comunicate, and is grotesqure
-	Hideously deformed because the summoning was botched
-	Creature wants to return to original form
-	boy wants to destroy it before it can do so.
-	Creature becomes complete, turns on boy.
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-	11-13-19 complaining about wrangling people to speak arabic, and how 
-	he isn't getting the help he needs. Complaining about 			 
-				 
+		Task Queues
+			Where callback functions are placed as they wait to execute.
+			
+			Every loop, one of the callbacks gets run.
+		
+
+		Render steps 
+			How the elements are displayed and laid out.
+				Style calculations
+				Layout/position
+				Painting the elements
+			
+			
+			
+		Tasks must be completed before the render steps take place.
+		This is why infinite loops halt all page interaction
+		
+		
+		
+
+
+		Rending code shouldn't be put in the task queue
+		
+			Why not?
+			The browser doesn't always update the screen every event cycle.
+			Most screens update at a set frequency, so JS render cycle synchronizes to match that freq.
+			
+			This means screen changing code in the task queue can run many times before the browser updates the screen,
+			making animations appear to run faster or look jumpy when the screen finally changes.
+			
+			
+			60Hz screen, with 120hz cycle
+			
+			function taskQ_callback() { // Task Queue rending 
+				moveFivePx();
+				setTimeout(moveFivePx, 0);
+			}
+			
+			taskQ_callback():   //Moves 10px every refresh
+			
+			
+			function renderSteps_callback() {
+				moveFivePx();
+				requestAnimationFrame(renderSteps_callaback); // recursive calls to keep moving the object. 
+			}
+			
+			window.requestAnimationFrame(renderSteps_callback); //
+		
+		
+			Tasks happen in the correct order during frames,
+				but there is no specific timing within the frame.
+			
+			Rendering tasks happening multiple times within a frame wasted cpu cycles, 
+				because only the last change would be seen by hte next render frame.
+			
+			setTimeout(animation, 1000/60) was used to only apply rending tasks once per frame.
+
+			This "fix" came with its own issues:
+			
+			1. With set timeout, a long running task slotted at the end of a frame
+				can spill over into the next one, delaying the screen update process.
+				
+			2. Inaccuracies can cause no tasks to complete during one render frame,
+				but multiple  completing during the next one.
+				
+				
+			Request animation frame makes all the render tasks passed in complete within frame timing.
+			
+			Request animation frame comes before the 3 render steps (stylesheet processing, layout/positioning, painting);
+			This makes changing the layout less expensive because it doesn't paint every single part, just the last one .
+			
+			button.addEventListener('Click', () => {
+				box.style.display = "none";
+				box.style.display = "block";
+				
+				//repeat 100x
+				
+				
+				box.style.display = "block"; //The only step that's painted.
+			};
+		
+			
+			
